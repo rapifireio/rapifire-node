@@ -1,30 +1,44 @@
 var Rapifire  = require('./index.js');
 
+// packet builder helpers, senml
+function orderCommand(type) {
+    return '{"bn":"/officeChap/", "e":[{"n":"order", "sv":"' + type + '"}]}';
+}
 
-var c1 = new Rapifire(
-    '_Ip1yEc2bZcZtXJNy_vFqB323LQ=',
-    'EQx5spqr7mIg',
-    function() {
-        console.log("c1: connected");
-    },
-    function(channel, message) {
-        console.log("c1: channel " + channel + " received " + message);
-    });
+function machineStatus(status) {
+    return '{"bn":"/coffeeMachine/", "e":[{"n":"status", "sv":"' + status + '"}]}';
+}
 
 
-var c2 = new Rapifire(
-    '_Ip1yEc2bZcZtXJNy_vFqB323LQ=',
-    'EQx5spqr7mIg',
-    function() {
-        console.log("c2: connected");
-    },
-    function(channel, message, headers) {
-        console.log("c2: channel " + channel + " received " + message + ", headers: " + headers);
-    }
-);
+var dataChannel = "/mRRRRRRRRme/data";
+var commandsChannel = "/mRRRRRRRRme/commands";
+
+// coffee machine
+function coffeeMachineOnConnect() {
+    console.log("coffee machine operational.");
+    this.subscribe(commandsChannel);
+    this.publish(dataChannel, machineStatus("on"));
+}
+
+function coffeeMachineOnMessage(channel, message, headers) {
+    console.log("coffee machine received " + message + " on channel " + channel + " with headers " + headers);
+}
+
+var coffeeMachine = new Rapifire('pkU6b-Tc420qFKPdwHJn8L2rWFA=','qFQhkjetZArC', coffeeMachineOnConnect, coffeeMachineOnMessage);
+
+
+// office chap
+function officeChapOnConnect() {
+    console.log("let me order coffee pls!");
+    this.subscribe(dataChannel);
+}
+
+function officeChapOnMessage(channel, message, headers) {
+    console.log("order ready!");
+}
+
+var officeChap = new Rapifire('-E8nbr_3sC12sEkLnCkaR-wRRiA=', '4AjZ5E8YzfAd', officeChapOnConnect, officeChapOnConnect);
 
 setTimeout(function() {
-    c1.subscribe({channel:"/mRRRRRRRRmq/commands"});
-    c2.publish("/mRRRRRRRRmq/commands", '{"e":[{"n":"asdf", "v":"fff"}]}');
-    c2.publish("/mRRRRRRRRmq/data", '{"e":[{"n":"asdf", "v":"fff"}]}');
-}, 3000);
+    console.log("quitting!");
+}, 1000);
