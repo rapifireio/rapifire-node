@@ -1,12 +1,16 @@
 var Rapifire  = require('./index.js');
 
-// sending messages to rapifire (senml required)
+// Data and Commands channels as well as Auth ID and Auth Token can be found in top right
+// corner of your thing details page in 'API Access Keys and Channel Names' section.
+
+// Sending messages to Rapifire (SenML required).
+// For details about SenML see our blog post here: http://blog.rapifire.com/introduction-to-senml/
 var dataChannel = "/mRRRRRRRRme/data";
 
-// reading commands from office (any format)
+// Reading commands from office (any format).
 var commandsChannel = "/mRRRRRRRRme/commands";
 
-// senml formatted message
+// SenML formatted message.
 function machineStatus(status) {
     return {
         "bn":"/coffeeMachine/",
@@ -14,24 +18,24 @@ function machineStatus(status) {
     };
 }
 
-// senml formatted message
+// SenML formatted message.
 function orderReady(coffeeType) {
     return {
         "bn":"/coffeeMachine/",
         "e":[{"n":"order", "sv": coffeeType}]};
 }
 
-// is coffee machine working or in maintenance mode?
+// Is coffee machine working or in maintenance mode?
 var operational = true;
 
-// coffee machine behaviour when connected to rapifire
+// Coffee machine behaviour when connected to Rapifire.
 function onConnect() {
     console.log("coffee machine operational.");
     this.subscribe(commandsChannel);
     this.publish(dataChannel, machineStatus("on"));
 }
 
-// coffee machine behaviour when message is read from rapifire (from subscribed commands channel)
+// Coffee machine behaviour when message is read from Rapifire (from commands channel, that we subscribed to in onConnect).
 function onMessage(channel, message, headers) {
     if (operational) {
         console.log("preparing " + message);
@@ -43,10 +47,10 @@ function onMessage(channel, message, headers) {
     }
 }
 
-// connect to rapifire with your thing's auth id and auth token, pass proper handlers
+// Connect to Rapifire with your Thing's Auth ID and Auth Token, pass proper handlers.
 var coffeeMachine = new Rapifire('pkU6b-Tc420qFKPdwHJn8L2rWFA=','qFQhkjetZArC', onConnect, onMessage);
 
-// after connection do maintenance from time to time informing rapifire and all subscribers about that
+// After connecting, we do inform Rapifire and all subscribers about maintenance of our machine by sending proper status message.
 setInterval(function() {
     // check if maintenance status needs change
     if (!operational || Math.random() > 0.8) {
