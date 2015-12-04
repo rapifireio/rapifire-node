@@ -33,7 +33,7 @@ function buildPublishPacket(channel, message) {
 };
 
 var Rapifire = function(thingId, thingToken, onConnect, onMessage, onError) {
-    var debug = true;
+    var debug = false;
     var config = {
         url: 'ws://ws.rapifire.com/pubsub',
         appId: '36799b71-c79f-405e-b345-cc5827d0e401',
