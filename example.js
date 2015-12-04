@@ -1,14 +1,9 @@
 var Rapifire  = require('./index.js');
 
-// packet builder helpers, senml
-function orderCommand(type) {
-    return '{"bn":"/officeChap/", "e":[{"n":"order", "sv":"' + type + '"}]}';
-}
 
-function machineStatus(status) {
-    return '{"bn":"/coffeeMachine/", "e":[{"n":"status", "sv":"' + status + '"}]}';
+function orderDelivery(coffee) {
+    return JSON.parse('{"bn":"/coffeeMachine/", "e":[{"n":"order", "sv":"'+ coffee +'"}]}')c;
 }
-
 
 var dataChannel = "/mRRRRRRRRme/data";
 var commandsChannel = "/mRRRRRRRRme/commands";
@@ -21,7 +16,10 @@ function coffeeMachineOnConnect() {
 }
 
 function coffeeMachineOnMessage(channel, message, headers) {
-    console.log("coffee machine received " + message + " on channel " + channel + " with headers " + headers);
+    console.log("preparing " + message);
+    // do the job here!
+    console.log("order ready!");
+    this.publish(dataChannel, message);
 }
 
 var coffeeMachine = new Rapifire('pkU6b-Tc420qFKPdwHJn8L2rWFA=','qFQhkjetZArC', coffeeMachineOnConnect, coffeeMachineOnMessage);
@@ -34,11 +32,17 @@ function officeChapOnConnect() {
 }
 
 function officeChapOnMessage(channel, message, headers) {
-    console.log("order ready!");
+    if (typeof message ===  'string') {
+        console.log("here is my " + message);
+    } else if (message.e[0].n == "status") {
+        console.log("coffee machine is " + message.e[0].sv);
+    }
 }
 
-var officeChap = new Rapifire('-E8nbr_3sC12sEkLnCkaR-wRRiA=', '4AjZ5E8YzfAd', officeChapOnConnect, officeChapOnConnect);
+var officeChap = new Rapifire('-E8nbr_3sC12sEkLnCkaR-wRRiA=', '4AjZ5E8YzfAd', officeChapOnConnect, officeChapOnMessage);
+
+
 
 setTimeout(function() {
-    console.log("quitting!");
+    officeChap.publish(commandsChannel, "latte");
 }, 1000);
