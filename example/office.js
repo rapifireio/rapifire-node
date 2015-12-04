@@ -1,4 +1,4 @@
-var Rapifire  = require('./index.js');
+var Rapifire = require('../index.js');
 
 // Data and Commands channels can be found in top right corner of your thing details
 // page in 'API Access Keys and Channel Names' section. User's Auth ID and Auth Token
@@ -30,6 +30,7 @@ function onMessage(channel, message, headers) {
 }
 
 // Connect to Rapifire with your User's Auth ID and Auth Token, pass proper handlers.
+// Replace Auth ID and Auth Token with data from your user profile.
 var office = new Rapifire('-E8nbr_3sC12sEkLnCkaR-wRRiA=', '4AjZ5E8YzfAd', onConnect, onMessage);
 
 // Possible coffees to order.

@@ -1,4 +1,4 @@
-var Rapifire  = require('./index.js');
+var Rapifire = require('../index.js');
 
 // Data and Commands channels as well as Auth ID and Auth Token can be found in top right
 // corner of your thing details page in 'API Access Keys and Channel Names' section.
@@ -48,6 +48,7 @@ function onMessage(channel, message, headers) {
 }
 
 // Connect to Rapifire with your Thing's Auth ID and Auth Token, pass proper handlers.
+// Replace Auth ID and Auth Token with data from your thing details page.
 var coffeeMachine = new Rapifire('pkU6b-Tc420qFKPdwHJn8L2rWFA=','qFQhkjetZArC', onConnect, onMessage);
 
 // After connecting, we do inform Rapifire and all subscribers about maintenance of our machine by sending proper status message.
