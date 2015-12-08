@@ -20,10 +20,5 @@
   "homepage": "https://github.com/rapifireio/rapifire-node#readme",
   "dependencies": {
     "ws": "^0.8.1"
-  },
-  "devDependencies": {
-    "gulp-uglify": "^1.4.2",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
   }
 }
