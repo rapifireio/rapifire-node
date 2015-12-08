@@ -1,0 +1,24 @@
+{
+  "name": "rapifire-node",
+  "version": "0.1.0",
+  "description": "Rapifire.com websocket API client for Node",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rapifireio/rapifire-node.git"
+  },
+  "keywords": [
+    "publish/subscribe",
+    "client",
+    "websocket"
+  ],
+  "author": "Rapifire.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rapifireio/rapifire-node/issues"
+  },
+  "homepage": "https://github.com/rapifireio/rapifire-node#readme",
+  "dependencies": {
+    "ws": "^0.8.1"
+  }
+}
