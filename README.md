@@ -1,6 +1,6 @@
 # rapifire-node
 
-[Rapifire.com](http://rapifire.com) client library for [node.js](http://nodejs.org)
+[Rapifire.com](http://rapifire.com) client library for [node.js](http://nodejs.org).
 
 ### Example
 
