@@ -1,3 +1,5 @@
+# RAPIFIRE NodeJS Websockets Client 
+
 [RAPIFIRE](http://rapifire.com) client library for [node.js](http://nodejs.org) using Websockets.
 
 ### Installation
