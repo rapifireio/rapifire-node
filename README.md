@@ -1,6 +1,16 @@
 # rapifire-node
 
-[Rapifire.com](http://rapifire.com) client library for [node.js](http://nodejs.org)
+[RAPIFIRE](http://rapifire.com) client library for [node.js](http://nodejs.org) using Websockets.
+
+### Installation
+
+````bash
+npm install --save rapifire-node
+````
+
+### Documenation
+
+[RAPIFIRE website](http://rapifire.com/a/things/docs/#/documentation/pubsub/websockets).
 
 ### Example
 
