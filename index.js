@@ -5,7 +5,6 @@ function buildInitPacket(config) {
     return {
         "operation": "init",
         "data": {
-            "appId" : config.appId,
             "authId" : config.authId,
             "authKey" : config.authKey
         }
@@ -16,8 +15,7 @@ function buildSubscribePacket(channel) {
     return {
         "operation": "subscribe",
         "data": {
-            "channel": channel,
-            "interactive": false
+            "channel": channel
         }
     };
 };
@@ -36,8 +34,6 @@ var Rapifire = function(authId, authToken, onConnect, onMessage, onError) {
     var debug = false;
     var config = {
         url: 'ws://ws.rapifire.com/pubsub',
-        // internal app id for rapifire, dont change!
-        appId: '36799b71-c79f-405e-b345-cc5827d0e401',
         authId: authId,
         authKey: authToken
     };
